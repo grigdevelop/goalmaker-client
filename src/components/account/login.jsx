@@ -69,12 +69,15 @@ class Login extends Component{
                 this.setState({
                     message: 'Success logged in'
                 });
+                accountService.AuthorizeUser(user);
                 this.props.history.push('/goals');
+            }else{
+                throw new Error('Username or password invalid.');
             }
         } catch (error) {
             this.setState({
                 message: error.message
-            });
+            });           
         }
     }
 }

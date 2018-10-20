@@ -1,12 +1,9 @@
-import HttpMock from './../utils/httpMock';
-import { Data } from './../utils/mockDb';
+import apiClient from './../utils/apiClient';
 
 class GoalService{
     
     getGoals(){
-        return HttpMock.post(() => {
-            return Data('goals');
-        });
+        return apiClient.post('goals/userGoals', {});
     }
 }
 
