@@ -38,4 +38,4 @@ class HttpMock {
 
 let httpMock = new HttpMock();
 
-export default httpMock;
+//export default httpMock;

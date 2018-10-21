@@ -1,4 +1,4 @@
-import { Data } from './mockDb';
+import { arranger } from './mockDb';
 
 class HMocker{    
 
@@ -31,15 +31,13 @@ class RoutMocker{
     }
 
     call(url, data){
-
         for(let i = 0; i < this.handlers.length; i += 1){
             let mh = this.handlers[i];
             if(mh.expression(url, data)){
                 return mh.handler(url, data);
             }
-
-            return new HMocker(() => false);
         }
+        return new HMocker(() => false).handler(url, data);
     }
 
 }
@@ -49,15 +47,23 @@ function configure(routerMocker){
     routerMocker.when((url, data) => {
         return url.includes('account/login');
     }).do((url, data) => {
-        return Data('users')
+        return arranger.entity('users').getAll()
         .find(u => u.username === data.username && u.password === data.password);
     });
 
     routerMocker.when((url, data) => {
         return url.includes('goals/userGoals');
     }).do((url, data) => {
-        return Data('goals');
+        return arranger.entity('goals').getAll();       
     });
+
+    routerMocker.when((url, data) => {
+        return url.includes('goals/create');
+    }).do((url, data) => {
+        return arranger.entity('goals').add(data);
+    });
+
+    //goals/create
 
 }
 
