@@ -10,7 +10,14 @@ class AppWrapper{
     constructor(){
         let options = new ReactRouterEnzymeContext();  
         let optionsRes = options.get();
-        this.v = mount(<MemoryRouter><App /></MemoryRouter>, optionsRes);  
+        this.v = mount(<MemoryRouter><App /></MemoryRouter>, optionsRes); 
+        Object.getPrototypeOf(this.v).toPromise = () => {
+            return new Promise((res, rej) => {
+                setImmediate(() => {
+                    res();
+                });
+            });
+        } 
     }
 
     view(){
@@ -23,6 +30,14 @@ class AppWrapper{
 
     static emptyEvent(){
         return {preventDefault: () => {}};
+    }
+
+    static waitApi(){
+        return new Promise((res, rej) => {
+            setImmediate(() => {
+                res();
+            });
+        });
     }
 }
 

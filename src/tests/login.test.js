@@ -21,23 +21,18 @@ it("should login the user", async () => {
   let wrapper = new AppWrapper();
   let loginView = wrapper.view().find(Login);
 
-  arranger
-    .entity("users")
-    .add({ id: 1, username: "grigdevelop", password: "password" });
+  arranger.entity("users").add({ id: 1, username: "grigdevelop", password: "password" });
   arranger.entity("goals").add({ id: 1, title: "gugush", desc: "vaytem" });
   arranger.entity("goals").add({ id: 2, title: "vardan", desc: "chidem" });
 
-  loginView.setState({ username: "grigdevelop", password: "password" });  
-  //loginView.find('input').first().simulate('change', {target: {value: 'grigdevelop'}});
-  wrapper.view().update();
-  //wrapper.logView(); 
+  loginView.find('input[name="username"]').simulate('change', {target: {value: 'grigdevelop', name: 'username'}});
+  loginView.find('input[name="password"]').simulate('change', {target: {value: 'password', name: 'password'}});
 
 
-  await loginView.instance().handleSubmit(AppWrapper.emptyEvent());
-
-
+  await loginView.find('form').simulate('submit').toPromise();
+  
+  
   let goals = wrapper.view().update().find(Goals).find(Goal);
-  //wrapper.logView();
   expect(goals).not.toBeNull();
   expect(goals.length).toBe(2);
 
