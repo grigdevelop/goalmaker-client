@@ -47,6 +47,7 @@ function configure(routerMocker){
     routerMocker.when((url, data) => {
         return url.includes('account/login');
     }).do((url, data) => {
+        console.log( url, data);
         return arranger.entity('users').getAll()
         .find(u => u.username === data.username && u.password === data.password);
     });
