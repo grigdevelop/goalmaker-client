@@ -1,4 +1,4 @@
 import Login from "./account/login";
-import Goals from "./goals/goals";
+import {Goals, Goal} from "./goals/goals";
 
-export {Login, Goals};
+export {Login, Goals, Goal};

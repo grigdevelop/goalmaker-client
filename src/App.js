@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from "react-router";
-import Login from './components/account/login';
-import Goals from "./components/goals/goals";
+import {Goals, Login} from "./components";
 import PrivateRoute from './components/auth/privateRoute';
 
 class App extends Component {
